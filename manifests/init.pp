@@ -12,7 +12,10 @@ class mongodb () inherits mongodb::params {
   class {'mongodb::service':
     subscribe => Class['mongodb::config']
   }
-  anchor {'mongodb::end':
+  class {'mongodb::backup':
     require => Class['mongodb::service']
+  }
+  anchor {'mongodb::end':
+    require => Class['mongodb::backup']
   }
 }

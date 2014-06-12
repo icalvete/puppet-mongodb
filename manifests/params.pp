@@ -1,5 +1,7 @@
 class mongodb::params {
 
+  $backup_dir = hiera('backup_dir')
+
   case $::operatingsystem {
 
     /^(Debian|Ubuntu)$/: {
