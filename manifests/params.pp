@@ -1,7 +1,9 @@
 class mongodb::params {
 
-  $backup_dir  = hiera('backup_dir')
-  $small_files = true
+  $backup           = true
+  $backup_dir       = hiera('backup_dir')
+  $small_files      = true
+  $backup_retention = 7
 
   case $::operatingsystem {
 

@@ -1,4 +1,9 @@
-class mongodb () inherits mongodb::params {
+class mongodb (
+
+  $backup           = $mongodb::params::backup,
+  $backup_retention = $mongodb::params::backup_retention
+
+) inherits mongodb::params {
 
   anchor {'mongodb::begin':
     before => Class['mongodb::install']
@@ -12,10 +17,14 @@ class mongodb () inherits mongodb::params {
   class {'mongodb::service':
     subscribe => Class['mongodb::config']
   }
-  class {'mongodb::backup':
-    require => Class['mongodb::service']
+
+  if $backup {
+    class {'mongodb::backup':
+      require => Class['mongodb::service']
+    }
   }
+
   anchor {'mongodb::end':
-    require => Class['mongodb::backup']
+    require => Class['mongodb::service']
   }
 }
