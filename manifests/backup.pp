@@ -1,8 +1,5 @@
 class mongodb::backup {
 
-  $backup_dir = $mongodb::params::backup_dir
-
-
   file{ 'mongo_backup_dir':
     ensure => directory,
     path   => "${backup_dir}/mongo",

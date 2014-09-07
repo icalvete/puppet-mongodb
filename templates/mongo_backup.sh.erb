@@ -1,10 +1,11 @@
 #!/bin/bash
 
-BACKUP_DIR=<%= @backup_dir -%>/mongo
+BACKUP_DIR=<%= scope.lookupvar('mongodb::backup_directory') %>
 DATE=`/bin/date +%Y%m%d%H%M`
 
 cd $BACKUP_DIR
 /usr/bin/mongodump
 mv dump $DATE
+/bin/tar cvfj ${DATE}.tar.bz2 $DATE
 
-/usr/bin/find /srv/backup/mongo -maxdepth 1 -mindepth 1 -type d -mtime +<%= @backup_retention -%> -exec rm -fR {} \;
+/usr/bin/find <%= scope.lookupvar('mongodb::backup_directory') -%> -maxdepth 1 -mindepth 1 -type d -mtime +<%= scope.lookupvar('mongodb::backup_retention') -%> -exec rm -fR {} \;
