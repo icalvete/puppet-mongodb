@@ -7,5 +7,6 @@ cd $BACKUP_DIR
 /usr/bin/mongodump
 mv dump $DATE
 /bin/tar cvfj ${DATE}.tar.bz2 $DATE
+/bin/rm -fR $DATE
 
 /usr/bin/find <%= scope.lookupvar('mongodb::backup_directory') -%> -maxdepth 1 -mindepth 1 -type d -mtime +<%= scope.lookupvar('mongodb::backup_retention') -%> -exec rm -fR {} \;

@@ -20,7 +20,7 @@ class mongodb::backup {
   cron { "add_backup_mongo_${::hostname}":
     command => '/root/mongo_backup.sh',
     user    => 'root',
-    hour    => '*/2',
+    hour    => '*/6',
     minute  => '0',
     require => File['mongo_backup_script']
   }
