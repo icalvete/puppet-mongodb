@@ -2,7 +2,8 @@ class mongodb (
 
   $backup           = $mongodb::params::backup,
   $backup_directory = $mongodb::params::backup_directory,
-  $backup_retention = $mongodb::params::backup_retention
+  $backup_retention = $mongodb::params::backup_retention,
+  $official         = $mongodb::params::official
 
 ) inherits mongodb::params {
 
