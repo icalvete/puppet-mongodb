@@ -20,7 +20,7 @@ class mongodb::params {
       $config_file          = '/etc/mongodb.conf'
     }
     default: {
-      fail ("${::operatingsystem} not supported.")
+      err ("${::operatingsystem} not supported.")
     }
   }
 }

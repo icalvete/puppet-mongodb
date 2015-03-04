@@ -1,0 +1,9 @@
+---
+:backends:
+        - yaml
+:hierarchy:
+        - defaults
+        - global
+        - common
+:yaml:
+        :datadir: "spec/fixtures/hiera"
