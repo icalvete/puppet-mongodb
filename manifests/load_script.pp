@@ -7,6 +7,12 @@ define mongodb::load_script (
 
   include mongodb
 
+  if $mongodb::official {
+    $final_service = $mongodb::params::service_official
+  } else {
+    $final_service = $mongodb::params::service
+  }
+
   $script_source = $script['source']
   $script_file   = $script['file']
 
@@ -16,7 +22,7 @@ define mongodb::load_script (
 
     fail('mongodb::load_script needs script parameter.')
   }else{
-  
+
     if ! is_hash($script) {
       fail('mongodb::load_script script parameter needs to be an hash.')
     }
@@ -39,7 +45,7 @@ define mongodb::load_script (
   exec {"load_scriptscript_${name}":
     cwd     => '/tmp/',
     command => "/usr/bin/mongo /tmp/${script_file}",
-    require => File["load_script_${name}"],
+    require => [File["load_script_${name}"], Service[$final_service]],
     unless  => $unless
   }
 }
